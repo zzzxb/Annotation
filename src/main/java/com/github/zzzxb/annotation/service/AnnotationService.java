@@ -1,6 +1,7 @@
 package com.github.zzzxb.annotation.service;
 
 import com.github.zzzxb.annotation.pojo.TaskInfo;
+import com.github.zzzxb.annotation.setting.AnnotationSetting;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
@@ -17,7 +18,12 @@ import java.util.List;
  * 2024/11/4
  */
 public class AnnotationService {
-    private final String COMMENT = "-- ";
+    private final AnnotationSetting.State state = AnnotationSetting.getInstance().getState();
+
+    public String getSymbol() {
+        assert state != null;
+        return state.symbol + " ";
+    }
 
     public void runTask(Editor editor, Project project, Document document) {
         List<Runnable> runnableList = selectLineComment(editor, document);
@@ -58,17 +64,17 @@ public class AnnotationService {
         Runnable runnable = null;
         int inc = 0;
         String text = document.getText(new TextRange(currentLineStartOffset, currentLineEndOffset));
-        if (text.trim().startsWith(COMMENT)) {
-            String replaced = text.replaceFirst(COMMENT, "");
+        if (text.trim().startsWith(getSymbol())) {
+            String replaced = text.replaceFirst(getSymbol(), "");
             runnable = () -> document.replaceString(currentLineStartOffset + increment, currentLineEndOffset + increment, replaced);
-            inc = -COMMENT.length();
-        } else if (text.trim().startsWith(COMMENT.trim())) {
-            String replaced = text.replaceFirst(COMMENT.trim(), "");
+            inc = -getSymbol().length();
+        } else if (text.trim().startsWith(getSymbol().trim())) {
+            String replaced = text.replaceFirst(getSymbol().trim(), "");
             runnable = () -> document.replaceString(currentLineStartOffset + increment, currentLineEndOffset + increment, replaced);
-            inc = -COMMENT.trim().length();
+            inc = -getSymbol().trim().length();
         }else {
-            runnable = () -> document.insertString(currentLineStartOffset + increment, COMMENT);
-            inc = COMMENT.length();
+            runnable = () -> document.insertString(currentLineStartOffset + increment, getSymbol());
+            inc = getSymbol().length();
         }
         return new TaskInfo(runnable, inc);
     }

@@ -1,11 +1,12 @@
 # Annotation
 
-![Build](https://github.com/zzzxb/Annication/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-
 <!-- Plugin description -->
-* 注释修改, 将默认注释改成 `--`
+* 指定注释符号,替换默认文件注释
+
+* Custom symbols
+  * `Settings` -> `Tools` -> `Annotation`  
+* Custom keymap
+  * `Settings` -> `Keymap` -> `Plugins` -> `Annotation`  
 <!-- Plugin description end -->
 
 ## Installation

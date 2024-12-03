@@ -16,4 +16,11 @@
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools" instance="com.github.zzzxb.annotation.setting.AnnotationSettingConfigurable"
+                                 id="com.github.zzzxb.annotation.setting.AnnotationSettingConfigurable"
+                                 displayName="Annotation"/>
+        <applicationService serviceImplementation="com.github.zzzxb.annotation.setting.AnnotationSetting"/>
+    </extensions>
 </idea-plugin>
